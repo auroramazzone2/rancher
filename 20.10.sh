@@ -89,8 +89,10 @@ start_docker() {
 		dockerd &
 		sleep $DIND_TEST_WAIT
 	elif [ -d '/run/systemd/system' ] ; then
+	        $sh_c 'echo "{ \"bip\": \"192.168.110.1/24\"}" > /etc/docker/daemon.json'
 		$sh_c 'systemctl start docker'
 	else
+	        $sh_c 'echo "{ \"bip\": \"192.168.110.1/24\"}" > /etc/docker/daemon.json'	
 		$sh_c 'service docker start'
 	fi
 }
